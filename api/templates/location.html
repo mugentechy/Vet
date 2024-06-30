@@ -1,0 +1,15 @@
+{% extends "main.html" %}
+{% block content %}
+<div class="container">
+    <h2>Veterinarians Near {{ location }}</h2>
+    {% if veterinarians %}
+    <ul>
+        {% for vet in veterinarians %}
+        <li>{{ vet.name }} - {{ vet.location }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p>No veterinarians found near {{ location }}</p>
+    {% endif %}
+</div>
+{% endblock %}
