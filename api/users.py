@@ -1,13 +1,13 @@
 from flask import request, jsonify, Blueprint, render_template
 from werkzeug.security import generate_password_hash, check_password_hash
 import requests
-import googlemaps
+
+
 users = Blueprint('users', __name__)
 
 
 
 
-gmaps = googlemaps.Client(key='AIzaSyA1MIEXY2hOk955M59Oqkb2oAaYmHm2Un0&callback=initMap')
 @users.route('/addusers')
 def addusers():
     return render_template('register.html')
