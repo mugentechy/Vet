@@ -71,18 +71,13 @@ def logout():
 def search_veterinarians():
     # Hardcoded list of veterinarians in Kenya
     veterinarians = [
-        {'name': 'Jakaranda Veterinary Clinic & Surgery', 'location': {'lat': -1.2673401741777748, 'lng': 36.80009452723776}, 'address': 'Nairobi, Kenya'},
-        {'name': 'Noble Veterinary Surgeons', 'location': {'lat': -1.256432359420563, 'lng': 36.78594549110323}, 'address': 'Nairobi, Kenya'},
-        {'name': 'Westlands Paws Veterinary Clinic', 'location': {'lat': -1.2629667797925608, 'lng': 36.805681537817996}, 'address': 'Nairobi, Kenya'},
+        {'name': 'Vet Aid Machakos', 'location': {'lat': -1.5083533597174845,  'lng': 37.27112329964676}, 'address': 'Machakos, Kenya'},
+        {'name': 'Nairobi Veterinary Centre (Machakos Branch)', 'location': {'lat': -1.5166095231242784, 'lng':  37.27131898756945}, 'address': 'Machakos, Kenya'},
+        {'name': 'Briggits Veterinary Clinic and Services Machakos (Ambulatory)', 'location': {'lat': -1.5028475056821828,  'lng': 37.275181977647776}, 'address': 'Machakos, Kenya'},
         
-         {'name': 'Sarit Vet Clinic', 'location': {'lat': -1.2605640990461553,  'lng': 36.80216229547738}, 'address': 'Nairobi, Kenya'},
-        {'name': 'Sarat Shah Veterinary Clinic', 'location': {'lat': -1.2604782635136045, 'lng':  36.800703117370254}, 'address': 'Nairobi, Kenya'},
-        {'name': 'Veterinary Dr. Sura', 'location': {'lat': -1.2629612678396978, 'lng':  36.78538885528098}, 'address': 'Nairobi, Kenya'},
-     
-
-        {'name': 'St Austins Rd Veterinary Clinic', 'location': {'lat': -1.281894467479835,   'lng': 36.76673925492056}, 'address': 'Nairobi, Kenya'},
-        {'name': 'Davis and Ghalay Veterinary Clinic', 'location': {'lat': -1.2667722639331507,  'lng':  36.80497331911033}, 'address': 'Nairobi, Kenya'},
-    
+         {'name': 'Lukenya Agro~Vet Supplies Ltd', 'location': {'lat': -1.5248744153640412, 'lng': 37.278212485500624 }, 'address': 'Machakos, Kenya'},
+        {'name': 'Machakos Vet Supplies', 'location': {'lat': -1.450822215515419,  'lng':  37.2574066968316 }, 'address': 'Machakos, Kenya'},
+  
 
 
     ]
