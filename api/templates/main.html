@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Where To</title>
+    <title>VeTIFY</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--  css -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1MIEXY2hOk955M59Oqkb2oAaYmHm2Un0&callback=initMap" type="text/javascript"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+
 
   </head>
   <body>
@@ -16,11 +18,9 @@
         <nav class="navbar navbar-inverse">
       <div class="container-fluid">
         <div class="navbar-header">
-          <a class="navbar-brand" href="{{url_for('users.index')}}">Vetify</a>
+          <a class="navbar-brand" href="{{url_for('users.index')}}">VeTIFY</a>
         </div>
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="{{ url_for('users.nearby') }}">Find Me Vet Near Me</a></li>
-        </ul>
+     
 
         <ul class="nav navbar-nav navbar-right">
       <form class="navbar-form navbar-left" method="post" action="{{ url_for('users.search_veterinarians') }}">
@@ -62,7 +62,7 @@
           <h6 class="text-uppercase font-weight-bold">Contact</h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
           <p><i class="fas fa-home mr-3"></i> Rongai Kenya</p>
-          <p><i class="fas fa-envelope mr-3"></i>wapi@gmail.com</p>
+          <p><i class="fas fa-envelope mr-3"></i>VeTIFY@gmail.com</p>
           <p><i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
           <p><i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
         </div>
@@ -82,7 +82,7 @@
           <!-- Links -->
           <h6 class="text-uppercase font-weight-bold">Project links</h6>
           <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
-          <p><a href="#!">Where To</a></p>
+          <p><a href="#!">VeTIFY</a></p>
           <p><a href="#!">Find Veterinary</a></p>
           <p><a href="#!">Sign Up</a></p>
           <p><a href="#!">Login</a></p>
@@ -101,8 +101,8 @@
       </div>
 
       <!-- Copyright -->
-      <div class="footer-copyright text-center py-3">© 2021 Copyright:
-        <a>Where To</a>
+      <div class="footer-copyright text-center py-3">© 2024 Copyright:
+        <a>VeTIFY</a>
       </div>
     </footer>
   </body>

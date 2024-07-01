@@ -1,11 +1,13 @@
 from flask import request, jsonify, Blueprint, render_template
 from werkzeug.security import generate_password_hash, check_password_hash
 import requests
-
+import googlemaps
 users = Blueprint('users', __name__)
 
 
 
+
+gmaps = googlemaps.Client(key='AIzaSyA1MIEXY2hOk955M59Oqkb2oAaYmHm2Un0&callback=initMap')
 @users.route('/addusers')
 def addusers():
     return render_template('register.html')
@@ -65,105 +67,31 @@ def logout():
 
 
 
-
-@users.route('/find_veterinarians', methods=['GET'])
-def find_veterinarians():
-    lat = request.args.get('lat')
-    lng = request.args.get('lng')
-
-    if not lat or not lng:
-        return jsonify({'error': 'Latitude and longitude are required'}), 400
-
-    veterinarians = get_veterinarians_near(lat, lng)
-
-    return jsonify({'veterinarians': veterinarians})
-
-def get_veterinarians_near(lat, lng):
-    # Example function to fetch veterinarians near given lat, lng using Overpass API
-    overpass_url = f"https://overpass-api.de/api/interpreter?data=[out:json];node(around:5000,{lat},{lng})[amenity=veterinary];out;"
-    try:
-        response = requests.get(overpass_url)
-        data = response.json()
-
-        veterinarians = []
-        for element in data.get('elements', []):
-            name = element.get('tags', {}).get('name', 'Unknown')
-            location = f"{element['lat']}, {element['lon']}"
-            veterinarians.append({'name': name, 'location': location})
-
-        return veterinarians
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching veterinarians data: {e}")
-        return []
-
-
-
-# Assuming your route is within a Blueprint named 'users'
-@users.route('/search_veterinarians', methods=['GET'])
+@users.route('/search_veterinarians', methods=['POST'])
 def search_veterinarians():
-    # Retrieve location input from the query parameters
-    location = request.args.get('location')
-    print(location)
+    # Hardcoded list of veterinarians in Kenya
+    veterinarians = [
+        {'name': 'Jakaranda Veterinary Clinic & Surgery', 'location': {'lat': -1.2673401741777748, 'lng': 36.80009452723776}, 'address': 'Nairobi, Kenya'},
+        {'name': 'Noble Veterinary Surgeons', 'location': {'lat': -1.256432359420563, 'lng': 36.78594549110323}, 'address': 'Nairobi, Kenya'},
+        {'name': 'Westlands Paws Veterinary Clinic', 'location': {'lat': -1.2629667797925608, 'lng': 36.805681537817996}, 'address': 'Nairobi, Kenya'},
+        
+         {'name': 'Sarit Vet Clinic', 'location': {'lat': -1.2605640990461553,  'lng': 36.80216229547738}, 'address': 'Nairobi, Kenya'},
+        {'name': 'Sarat Shah Veterinary Clinic', 'location': {'lat': -1.2604782635136045, 'lng':  36.800703117370254}, 'address': 'Nairobi, Kenya'},
+        {'name': 'Veterinary Dr. Sura', 'location': {'lat': -1.2629612678396978, 'lng':  36.78538885528098}, 'address': 'Nairobi, Kenya'},
+     
+
+        {'name': 'St Austins Rd Veterinary Clinic', 'location': {'lat': -1.281894467479835,   'lng': 36.76673925492056}, 'address': 'Nairobi, Kenya'},
+        {'name': 'Davis and Ghalay Veterinary Clinic', 'location': {'lat': -1.2667722639331507,  'lng':  36.80497331911033}, 'address': 'Nairobi, Kenya'},
+    
+
+
+    ]
+    
+    location = request.form.get('address')
+    print(f"Location: {location}")
     
     if not location:
-        # Handle case where location is not provided
         return render_template('index.html', message='Please provide a location')
-    
-    # Step 1: Geocoding using Nominatim API
-    geo_data = geocode_location(location)
-    
-    if geo_data is None:
-        # Handle case where geocoding fails
-        return render_template('index.html', message='Location not found')
-    
-    # Extract latitude and longitude from geocoding response
-    lat = geo_data['lat']
-    lon = geo_data['lon']
-    
-    # Step 2: Query veterinarians using Overpass API
-    veterinarians = query_veterinarians(lat, lon)
     
     # Render a template with the search results
     return render_template('location.html', veterinarians=veterinarians, location=location)
-
-def geocode_location(location):
-    # Geocoding API endpoint
-    geocode_url = f'https://nominatim.openstreetmap.org/search.php?q={location}&format=json'
-    
-    try:
-        response = requests.get(geocode_url)
-        data = response.json()
-        
-        if data:
-            # Return the first result (assuming it's the most relevant)
-            return {
-                'lat': data[0]['lat'],
-                'lon': data[0]['lon']
-            }
-        else:
-            return None
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching geocoding data: {e}")
-        return None
-
-def query_veterinarians(lat, lon):
-    # Overpass API endpoint for querying veterinarians (amenities=vet)
-    overpass_url = f'https://overpass-api.de/api/interpreter?data=[out:json];node(around:10000,{lat},{lon})[amenity=vet];out;'
-    
-    try:
-        response = requests.get(overpass_url)
-        data = response.json()
-        
-        if 'elements' in data:
-            veterinarians = []
-            for element in data['elements']:
-                name = element.get('tags', {}).get('name', 'Unknown')
-                location = f"{element['lat']}, {element['lon']}"
-                veterinarians.append({'name': name, 'location': location})
-            
-            return veterinarians
-        else:
-            return []
-    except requests.exceptions.RequestException as e:
-        print(f"Error fetching veterinarians data: {e}")
-        return []

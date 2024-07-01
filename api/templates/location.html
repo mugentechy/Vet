@@ -1,15 +1,34 @@
 {% extends "main.html" %}
+
 {% block content %}
 <div class="container">
     <h2>Veterinarians Near {{ location }}</h2>
-    {% if veterinarians %}
-    <ul>
-        {% for vet in veterinarians %}
-        <li>{{ vet.name }} - {{ vet.location }}</li>
-        {% endfor %}
-    </ul>
-    {% else %}
-    <p>No veterinarians found near {{ location }}</p>
-    {% endif %}
+    
+    <div id="map" style="height: 700px;"></div>
 </div>
+
+<!-- Ensure the initMap function is defined globally -->
+<script>
+    function initMap() {
+        const map = new google.maps.Map(document.getElementById("map"), {
+            zoom: 12,
+            center: { lat: -1.2921, lng: 36.8219 }, // Default center (Nairobi)
+        });
+        
+        // Add markers for each veterinarian location
+        {% for vet in veterinarians %}
+            new google.maps.Marker({
+                position: { lat: {{ vet.location.lat }}, lng: {{ vet.location.lng }} },
+                map,
+                title: "{{ vet.name }}",
+            });
+        {% endfor %}
+    }
+</script>
+
+<!-- Load Google Maps API and call initMap as callback -->
+<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA1MIEXY2hOk955M59Oqkb2oAaYmHm2Un0&callback=initMap">
+</script>
+
 {% endblock %}
